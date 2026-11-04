@@ -1,4 +1,4 @@
--- Exercices from SQLBolt: https://sqlbolt.com/lesson/select_queries_introduction
+-- Exercises from SQLBolt: https://sqlbolt.com/lesson/select_queries_introduction
 
 -- Lesson 1: SELECT queries 101
 -- 1. 
@@ -12,7 +12,7 @@ SELECT Title, Year FROM movies;
 -- 5. 
 SELECT * FROM movies;
 
--- Lesson 2: Queries whith constraints (Pt. 1)
+-- Lesson 2: Queries with constraints (Pt. 1)
 -- 1. 
 SELECT id, title FROM movies 
 WHERE id = 6;
@@ -26,7 +26,7 @@ WHERE year NOT BETWEEN 2000 AND 2010;
 SELECT title, year FROM movies
 WHERE year <= 2003;
 
--- Lesson 3: Queries whith constraints (Pt. 2)
+-- Lesson 3: Queries with constraints (Pt. 2)
 -- 1. 
 SELECT title FROM movies 
 WHERE title LIKE "Toy Story%";
