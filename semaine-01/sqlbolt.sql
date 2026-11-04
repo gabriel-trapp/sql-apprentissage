@@ -3,13 +3,13 @@
 
 -- Lesson 1: SELECT queries 101
 -- 1. 
-SELECT Title FROM movies; 
+SELECT title FROM movies; 
 -- 2. 
-SELECT Director FROM movies; 
+SELECT director FROM movies; 
 -- 3. 
-SELECT Title, Director FROM movies;
+SELECT title, director FROM movies;
 -- 4. 
-SELECT Title, Year FROM movies;
+SELECT title, year FROM movies;
 -- 5. 
 SELECT * FROM movies;
 
@@ -48,15 +48,15 @@ WHERE title LIKE "WALL-_";
 -- 1.
 SELECT DISTINCT director FROM movies
 ORDER BY director ASC;
---2.
+-- 2.
 SELECT title, year FROM movies
 ORDER BY year DESC
 LIMIT 4;
---3.
+-- 3.
 SELECT title FROM movies
 ORDER BY title ASC
 LIMIT 5;
---4.
+-- 4.
 SELECT title FROM movies
 ORDER BY title ASC
 LIMIT 5 OFFSET 5;
@@ -83,4 +83,4 @@ LIMIT 2;
 SELECT city FROM north_american_cities
 WHERE country = "United States"
 ORDER BY population DESC
-LIMIT 2 OFFSET 2
+LIMIT 2 OFFSET 2;
