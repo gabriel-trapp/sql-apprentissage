@@ -100,17 +100,17 @@ INNER JOIN boxoffice ON movies.id = boxoffice.movie_id
 ORDER BY rating DESC;
 
 
-Lesson 7: Outer JOINs
+-- Lesson 7: Outer JOINs
 -- 1.
 SELECT DISTINCT building FROM employees;
 -- 2.
 SELECT * FROM buildings;
 -- 3.
 SELECT DISTINCT building_name, role FROM buildings
-LEFT JOIN employees on buildings.building_name = employees.building;
+LEFT JOIN employees ON buildings.building_name = employees.building;
 
 
-Lesson 8: A short note on NULLs
+-- Lesson 8: A short note on NULLs
 -- 1.
 SELECT name, role FROM employees
 WHERE building IS NULL;
@@ -120,7 +120,7 @@ LEFT JOIN employees ON buildings.building_name = employees.building
 WHERE name IS NULL;
 
 
-Lesson 9: Queries with expressions
+-- Lesson 9: Queries with expressions
 -- 1.
 SELECT title, (domestic_sales + international_sales) / 1000000 AS combined_sales FROM movies
 INNER JOIN boxoffice ON movies.id = boxoffice.movie_id;
@@ -129,15 +129,15 @@ SELECT title, rating * 10 AS rating_in_percent FROM movies
 INNER JOIN boxoffice on movies.id = boxoffice.movie_id;
 -- 3.
 SELECT title FROM movies
-WHERE YEAR%2=0;
+WHERE year % 2 = 0;
 
 
-Lesson 10: Queries with aggregate (Pt. 1)
+-- Lesson 10: Queries with aggregates (Pt. 1)
 -- 1.
 SELECT MAX(years_employed) FROM employees;
 -- 2.
-SELECT role, AVG(years_employed) as Average_years_employed FROM employees
+SELECT role, AVG(years_employed) AS Average_years_employed FROM employees
 GROUP BY role;
 -- 3.
-SELECT building, SUM(years_employed) as Total_years_employed FROM employees
+SELECT building, SUM(years_employed) AS Total_years_employed FROM employees
 GROUP BY building;
