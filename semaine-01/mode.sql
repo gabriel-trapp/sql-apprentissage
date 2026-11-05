@@ -7,9 +7,9 @@ SELECT player_name,
        CASE WHEN state = 'CA' THEN 'yes'
             ELSE NULL END AS is_from_california
     FROM benn.college_football_players
-ORDER BY is_from_california DESC;
+ORDER BY is_from_california ASC;
  -- 2.
- SELECT player_name,
+SELECT player_name,
         height,
         CASE WHEN height > 75 THEN 'over 75'
              WHEN height > 71 AND height <= 75 THEN '72-75'
@@ -30,7 +30,7 @@ SELECT CASE WHEN state IN ('CA', 'OR', 'WA') THEN 'West Coast'
 WHERE weight >= 300
 GROUP BY regional_designation;
 -- 5.
-SELECT * FROM benn.billboard_top_100_year_end
+SELECT * FROM benn.college_football_players
 WHERE group_name LIKE '%Ludacris%';
 -- 6.
 SELECT state,
