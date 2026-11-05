@@ -126,7 +126,7 @@ SELECT title, (domestic_sales + international_sales) / 1000000 AS combined_sales
 INNER JOIN boxoffice ON movies.id = boxoffice.movie_id;
 -- 2.
 SELECT title, rating * 10 AS rating_in_percent FROM movies
-INNER JOIN boxoffice on movies.id = boxoffice.movie_id;
+INNER JOIN boxoffice ON movies.id = boxoffice.movie_id;
 -- 3.
 SELECT title FROM movies
 WHERE year % 2 = 0;
@@ -136,8 +136,31 @@ WHERE year % 2 = 0;
 -- 1.
 SELECT MAX(years_employed) FROM employees;
 -- 2.
-SELECT role, AVG(years_employed) AS Average_years_employed FROM employees
+SELECT role, AVG(years_employed) AS average_years_employed FROM employees
 GROUP BY role;
 -- 3.
-SELECT building, SUM(years_employed) AS Total_years_employed FROM employees
+SELECT building, SUM(years_employed) AS total_years_employed FROM employees
 GROUP BY building;
+
+
+-- Lesson 11: Queries with aggregates (Pt. 2)
+-- 1.
+SELECT role, COUNT(*) AS number_of_artists FROM employees
+WHERE role = "Artist";
+-- 2.
+SELECT role, COUNT(*) AS number_of_employees FROM employees
+GROUP BY role;
+-- 3.
+SELECT role, SUM(years_employed) AS total_years_employed FROM employees
+GROUP BY role
+HAVING role = "Engineer";
+
+
+-- Lesson 12: Order of execution of a Query
+-- 1.
+SELECT director, COUNT(*) AS number_of_movies FROM movies
+GROUP BY Director;
+-- 2.
+SELECT director, SUM(domestic_sales + international_sales) AS total_sales FROM movies
+INNER JOIN boxoffice ON movies.id = boxoffice.movie_id
+GROUP BY Director;
