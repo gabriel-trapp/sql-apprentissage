@@ -152,15 +152,15 @@ SELECT role, COUNT(*) AS number_of_employees FROM employees
 GROUP BY role;
 -- 3.
 SELECT role, SUM(years_employed) AS total_years_employed FROM employees
-GROUP BY role
-HAVING role = "Engineer";
+WHERE role = "Engineer"
+GROUP BY role;
 
 
 -- Lesson 12: Order of execution of a Query
 -- 1.
 SELECT director, COUNT(*) AS number_of_movies FROM movies
-GROUP BY Director;
+GROUP BY director;
 -- 2.
 SELECT director, SUM(domestic_sales + international_sales) AS total_sales FROM movies
 INNER JOIN boxoffice ON movies.id = boxoffice.movie_id
-GROUP BY Director;
+GROUP BY director;
