@@ -10,10 +10,11 @@ Mon apprentissage du SQL : exercices et solutions commentées, avec un commit à
 
 | Semaine | Notions | Exercices faits |
 | --- | --- | --- |
-| 1 | SELECT, WHERE, ORDER BY, LIMIT, AS, GROUP BY, HAVING, JOIN, NULL, CASE | SQLBolt 1-12, SQLZoo (SELECT basics, SELECT from WORLD), Mode/ThoughtSpot (CASE) |
+| 1 | SELECT, WHERE, ORDER BY, LIMIT, AS, GROUP BY, HAVING, JOIN, NULL, CASE | SQLBolt 1-12, SQLZoo (SELECT basics, SELECT from WORLD), Mode/ThoughtSpot (CASE), Kaggle Intro to SQL |
 
 ## Ressources
 
 - [SQLBolt](https://sqlbolt.com)
 - [SQLZoo](https://sqlzoo.net)
 - [SQLmode](https://mode.com/sql-tutorial)
+- [Kaggle](https://www.kaggle.com/learn/intro-to-sql)
