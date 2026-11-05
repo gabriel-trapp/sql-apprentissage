@@ -10,9 +10,10 @@ Mon apprentissage du SQL : exercices et solutions commentées, avec un commit à
 
 | Semaine | Notions | Exercices faits |
 | --- | --- | --- |
-| 1 | SELECT, WHERE, ORDER BY, LIMIT, AS, GROUP BY, HAVING, JOIN, NULL | SQLBolt 1-12, SQLZoo (SELECT basics, SELECT from WORLD) |
+| 1 | SELECT, WHERE, ORDER BY, LIMIT, AS, GROUP BY, HAVING, JOIN, NULL | SQLBolt 1-12, SQLZoo (SELECT basics, SELECT from WORLD) | Mode/ThoughtSpot : CASE
 
 ## Ressources
 
 - [SQLBolt](https://sqlbolt.com)
 - [SQLZoo](https://sqlzoo.net)
+- [SQLmode](https://mode.com/sql-tutorial)
