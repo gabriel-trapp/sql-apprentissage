@@ -199,11 +199,11 @@ WHERE id = 'BEL';
 -- 3.
 SELECT player, gtime, teamname
 FROM goal JOIN team ON goal.team=team.id
-WHERE gtime < 8:
+WHERE gtime < 8;
 -- 4.
 SELECT player, teamname, coach
  FROM goal JOIN team ON goal.team=team.id
- WHERE coach LIKE 'Sébastien%':
+ WHERE coach LIKE 'Sébastien%';
 -- 5.
 SELECT player, id, city
 FROM goal JOIN game ON goal.game=game.id
