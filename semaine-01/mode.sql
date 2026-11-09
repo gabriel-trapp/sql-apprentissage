@@ -62,3 +62,35 @@ JOIN tutorial.crunchbase_acquisitions_clean_date acquisitions ON acquisitions.co
 WHERE founded_at_clean IS NOT NULL
 GROUP BY 1
 ORDER BY 5 DESC
+
+-- SQL String Functions
+-- 1.
+SELECT location,
+TRIM(leading '(' FROM LEFT(location, POSITION(',' IN location) - 1)) AS lattitude,
+TRIM(trailing ')' FROM RIGHT(location, LENGTH(location) - POSITION(',' IN location) ) ) AS longitude
+FROM tutorial.sf_crime_incidents_2014_01;
+-- 2.
+SELECT CONCAT('(', lat, ', ', lon, ')') AS location
+FROM tutorial.sf_crime_incidents_2014_01;
+-- 3.
+SELECT '(' || lat || ', ' || lon || ')' AS location
+FROM tutorial.sf_crime_incidents_2014_01;
+-- 4.
+SELECT CONCAT(SUBSTR(date, 7, 4), '-', SUBSTR(date, 1, 2), '-', SUBSTR(date, 4, 2)) AS cleaned_date
+FROM tutorial.sf_crime_incidents_2014_01;
+-- 5.
+SELECT CONCAT(UPPER(LEFT(category, 1)), LOWER(RIGHT(category, LENGTH(category) - 1))) AS category_cleaned
+FROM tutorial.sf_crime_incidents_2014_01;
+-- 6.
+SELECT (CONCAT(SUBSTR(date, 7, 4), '-', SUBSTR(date, 1, 2), '-', SUBSTR(date, 4, 2), ' ', time, ':00'))::timestamp AS cleaned_date,
+       (CONCAT(SUBSTR(date, 7, 4), '-', SUBSTR(date, 1, 2), '-', SUBSTR(date, 4, 2), ' ', time, ':00'))::timestamp + INTERVAL '1 week' AS cleaned_date_plus_1_week
+FROM tutorial.sf_crime_incidents_2014_01;
+-- 7.
+SELECT DATE_TRUNC('week', cleaned_date)::date AS week_beginning,
+       COUNT(*) AS incidents
+FROM tutorial.sf_crime_incidents_cleandate
+GROUP BY 1
+ORDER BY 1
+ -- 8.
+SELECT incidnt_num, cleaned_date, NOW() AT TIME ZONE 'PST' AS now, NOW() AT TIME ZONE 'PST' - cleaned_date AS time_ago 
+FROM tutorial.sf_crime_incidents_cleandate;
