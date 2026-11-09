@@ -29,9 +29,9 @@ SELECT unique_id, name
 FROM employeeUNI
 RIGHT JOIN employees ON employeeUNI.id = employees.id;
 -- 2.
-SELECT unique_id, name
-FROM employeeUNI
-RIGHT JOIN employees ON employeeUNI.id = employees.id;
+SELECT product_name, year, price
+FROM product
+JOIN sales ON product.product_id = sales.product_id
 -- 3.
 SELECT customer_id, COUNT(visit_id) AS count_no_trans
 FROM Visits
