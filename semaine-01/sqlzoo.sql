@@ -308,14 +308,15 @@ WHERE name = 'Rock Hudson'
 GROUP BY yr
 HAVING COUNT(title) > 2;
 -- 12.
+WITH s AS (SELECT movieid
+           FROM casting
+           JOIN actor ON casting.actorid = actor.id
+           WHERE name = 'Julie Andrews')
 SELECT title, name
 FROM movie
 JOIN casting ON movie.id = casting.movieid
 JOIN actor ON casting.actorid = actor.id
-WHERE movie.id IN (SELECT movieid
-                   FROM casting
-                   JOIN actor ON casting.actorid = actor.id
-                   WHERE name = 'Julie Andrews') AND ord = 1;
+WHERE movie.id IN (SELECT movieid FROM s) AND ord = 1;
 -- 13.
 SELECT name
 FROM actor
@@ -332,13 +333,14 @@ WHERE yr = 1978
 GROUP BY title
 ORDER BY COUNT(actorid) DESC, title;
 -- 15.
+WITH s AS (SELECT movieid 
+           FROM casting
+           JOIN actor ON casting.actorid = actor.id
+           WHERE name = 'Art Garfunkel')
 SELECT DISTINCT name
 FROM actor
 JOIN casting ON actor.id = casting.actorid
-WHERE movieid IN (SELECT movieid 
-                  FROM casting
-                  JOIN actor ON casting.actorid = actor.id
-                  WHERE name = 'Art Garfunkel') AND name != 'Art Garfunkel';
+WHERE movieid IN (SELECT movieid FROM s) AND name != 'Art Garfunkel';
 
 -- Using NULL
 -- 1.
