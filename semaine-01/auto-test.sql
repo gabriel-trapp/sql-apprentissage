@@ -79,3 +79,5 @@ FROM nobel
 GROUP BY subject
 HAVING COUNT(subject) >= 50
 ORDER by 4 DESC;
+
+
