@@ -5,6 +5,8 @@ Mon apprentissage du SQL : exercices et solutions commentées, avec un commit à
 ## Notions vues
 
 - **Semaine 1** : `SELECT`, `FROM`, `WHERE`, `AND` / `OR` / `NOT`, `BETWEEN`, `IN`, `LIKE`, `DISTINCT`, `ORDER BY`, `LIMIT`, `OFFSET`, calculs et `ROUND`, alias avec `AS`, `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`, `GROUP BY`, `HAVING`, `INNER JOIN`, `LEFT JOIN`, valeurs `NULL`, ordre d'exécution d'une requête
+- Semaine 1 : CTE (WITH), fonctions de fenêtre, Kaggle Advanced SQL, LeetCode
+- Git : clone, add, commit, push, pull, branches
 
 ## Suivi
 
@@ -18,5 +20,4 @@ Mon apprentissage du SQL : exercices et solutions commentées, avec un commit à
 - [SQLZoo](https://sqlzoo.net)
 - [SQLmode](https://mode.com/sql-tutorial)
 - [Kaggle](https://www.kaggle.com/learn/intro-to-sql)
-- Semaine 1 : CTE (WITH), fonctions de fenêtre, Kaggle Advanced SQL, LeetCode
-- Git : clone, add, commit, push, pull, branches
+

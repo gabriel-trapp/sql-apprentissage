@@ -385,3 +385,98 @@ SELECT name, CASE
              WHEN dept = 3 THEN 'Art'
              ELSE 'None' END AS l
 FROM teacher;
+
+-- Window functions
+--1.
+SELECT lastName, party, votes
+FROM ge
+WHERE constituency = 'S14000024' AND yr = 2017
+ORDER BY 3 DESC
+
+-- 2.
+SELECT party, votes, RANK() OVER (ORDER BY votes DESC) as posn
+FROM ge
+WHERE constituency = 'S14000024'  AND yr = 2017
+ORDER BY party
+
+-- 3.
+SELECT yr,party, votes, RANK() OVER (PARTITION BY yr ORDER BY votes DESC) as posn
+FROM ge
+WHERE constituency = 'S14000021'
+ORDER BY party,yr
+
+-- 4. 
+SELECT constituency,party, votes, RANK() OVER (PARTITION BY constituency ORDER BY votes DESC)  
+FROM ge
+WHERE constituency BETWEEN 'S14000021' AND 'S14000026' AND yr  = 2017
+ORDER BY 4, constituency
+
+-- 5. 
+SELECT constituency,party
+  FROM (SELECT constituency,party, votes, RANK() OVER (PARTITION BY constituency ORDER BY votes DESC)  AS rank FROM ge
+WHERE constituency BETWEEN 'S14000021' AND 'S14000026' AND yr  = 2017) AS t
+WHERE rank = 1
+ORDER BY constituency
+
+-- 6. 
+SELECT party, COUNT(1)
+FROM (SELECT constituency,party, votes, RANK() OVER (PARTITION BY constituency ORDER BY votes DESC)  AS rank FROM ge
+WHERE LEFT(constituency, 1) = 'S' AND yr  = 2017) AS t
+WHERE rank = 1
+GROUP BY party
+ORDER BY party
+
+-- Window LAG
+--1. 
+SELECT name, DAY(whn), confirmed, deaths, recovered
+FROM covid
+WHERE name = 'Spain'
+AND MONTH(whn) = 3 AND YEAR(whn) = 2020
+ORDER BY whn
+
+-- 2.
+SELECT name, DAY(whn), confirmed, LAG(confirmed, 1) OVER (PARTITION BY name ORDER BY whn)
+FROM covid
+WHERE name = 'Italy'
+AND MONTH(whn) = 3 AND YEAR(whn) = 2020
+ORDER BY whn
+
+-- 3. 
+SELECT name, DAY(whn), confirmed -,LAG(confirmed, 1) OVER (PARTITION BY name ORDER BY whn) AS new
+FROM covid
+WHERE name = 'Italy'
+AND MONTH(whn) = 3 AND YEAR(whn) = 2020
+ORDER BY whn
+
+-- 4.
+SELECT name, DATE_FORMAT(whn,'%Y-%m-%d'), confirmed - LAG(confirmed, 1) OVER (PARTITION BY name ORDER BY whn) AS new_this_week
+FROM covid
+WHERE name = 'Italy'
+AND WEEKDAY(whn) = 0 AND YEAR(whn) = 2020
+ORDER BY whn
+
+-- 5.
+SELECT tw.name, DATE_FORMAT(tw.whn,'%Y-%m-%d'), tw.confirmed - lw.confirmed
+FROM covid tw LEFT JOIN covid lw ON DATE_ADD(lw.whn, INTERVAL 1 WEEK) = tw.whn AND tw.name=lw.name
+WHERE tw.name = 'Italy' AND WEEKDAY(tw.whn) = 0
+ORDER BY tw.whn
+
+-- 6.
+SELECT name, confirmed, RANK() OVER (ORDER BY confirmed DESC) rc, deaths, RANK() OVER (ORDER by deaths DESC)
+FROM covid
+WHERE whn = '2020-04-20'
+ORDER BY confirmed DESC
+
+-- 7.
+SELECT world.name, ROUND(100000*confirmed/population,2), RANK() OVER (ORDER BY 100000*confirmed/population)
+FROM covid JOIN world ON covid.name=world.name
+WHERE whn = '2020-04-20' AND population > 10000000
+ORDER BY population DESC
+
+-- 8.
+SELECT name, DATE_FORMAT(whn, '%Y-%m-%d') AS peak_date, new_cases AS peak_value
+FROM (SELECT name, whn, new_cases, RANK() OVER (PARTITION BY name ORDER BY new_cases DESC) AS rk
+FROM (SELECT name, whn, confirmed - LAG(confirmed, 1) OVER (PARTITION BY name ORDER BY whn) AS new_cases FROM covid) AS daily) AS ranked
+WHERE rk = 1
+  AND new_cases >= 20000
+ORDER BY whn;
