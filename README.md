@@ -18,3 +18,4 @@ Mon apprentissage du SQL : exercices et solutions commentées, avec un commit à
 - [SQLZoo](https://sqlzoo.net)
 - [SQLmode](https://mode.com/sql-tutorial)
 - [Kaggle](https://www.kaggle.com/learn/intro-to-sql)
+- Semaine 1 : CTE (WITH), fonctions de fenêtre, Kaggle Advanced SQL, LeetCode
