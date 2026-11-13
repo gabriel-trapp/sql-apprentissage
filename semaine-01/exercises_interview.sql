@@ -74,4 +74,62 @@ FROM signups s
 LEFT JOIN confirmations c ON s.user_id = c.user_id
 GROUP BY s.user_id;
 
+-- Basic Aggregation Functions
+-- 1.
+SELECT *
+FROM cinema
+WHERE id % 2 != 0 AND description NOT IN ("boring")
+ORDER BY rating DESC;
 
+-- 2.
+SELECT p.product_id, IFNULL(ROUND(SUM(p.price * u.units) / SUM(u.units), 2), 0) AS average_price
+FROM Prices p
+LEFT JOIN UnitsSold u ON p.product_id = u.product_id AND u.purchase_date BETWEEN p.start_date AND p.end_date
+GROUP BY p.product_id;
+
+-- 3.
+SELECT project_id, ROUND(SUM(experience_years) / COUNT(name), 2) AS average_years
+FROM project
+LEFT JOIN employee ON project.employee_id = employee.employee_id
+GROUP BY 1;
+
+-- 4.
+SELECT contest_id, ROUND(COUNT(register.user_id) * 100 / (SELECT COUNT(*) FROM users), 2) AS percentage
+FROM register
+GROUP BY 1
+ORDER BY 2 DESC, 1  ;
+
+-- 5.
+SELECT query_name, 
+       ROUND(SUM(rating / position) / COUNT(rating), 2) AS quality, 
+       ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100 / COUNT(rating), 2) AS poor_query_percentage
+FROM queries
+GROUP BY query_name;
+
+-- 6.
+SELECT 
+    DATE_FORMAT(trans_date, '%Y-%m') AS month,
+    country,
+    COUNT(trans_date) AS trans_count,
+    SUM(CASE WHEN state = 'approved' THEN 1 ELSE 0 END) AS approved_count,
+    SUM(amount) AS trans_total_amount,
+    SUM(CASE WHEN state = 'approved' THEN amount ELSE 0 END) AS approved_total_amount
+FROM Transactions
+GROUP BY 1, 2;
+
+-- 7.
+WITH lll AS (SELECT * FROM delivery x WHERE x.order_date <= ALL(SELECT order_date FROM delivery y WHERE x.customer_id = y.customer_id))
+SELECT ROUND(SUM(CASE WHEN order_date = customer_pref_delivery_date THEN 1 ELSE 0 END) * 100 / COUNT(*), 2) AS immediate_percentage
+FROM lll;
+
+-- 8.
+WITH lll AS (
+    SELECT * 
+    FROM Activity x 
+    WHERE event_date = DATE_ADD(
+        (SELECT MIN(event_date) FROM Activity y WHERE x.player_id = y.player_id), 
+        INTERVAL 1 DAY
+    )
+)
+SELECT ROUND(COUNT(DISTINCT player_id) / (SELECT COUNT(DISTINCT player_id) FROM Activity), 2) AS fraction
+FROM lll;
