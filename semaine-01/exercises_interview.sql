@@ -133,3 +133,46 @@ WITH lll AS (
 )
 SELECT ROUND(COUNT(DISTINCT player_id) / (SELECT COUNT(DISTINCT player_id) FROM Activity), 2) AS fraction
 FROM lll;
+
+-- Sorting and Grouping
+-- 1.
+SELECT teacher_id, COUNT(DISTINCT subject_id) AS cnt
+FROM teacher 
+GROUP BY 1;
+
+-- 2.
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users
+FROM activity
+WHERE activity_date BETWEEN '2019-06-28'AND '2019-07-27'
+GROUP BY 1;
+
+-- 3. 
+SELECT product_id, year AS first_year, quantity, price
+FROM sales
+WHERE (product_id, year) IN (
+    SELECT product_id, MIN(year)
+    FROM sales
+    GROUP BY product_id);
+
+-- 4.
+WITH num_s AS (SELECT class, COUNT(DISTINCT student) AS number FROM courses GROUP BY 1)
+SELECT class
+FROM num_s
+WHERE number >= 5;
+
+-- 5.
+SELECT user_id, COUNT(DISTINCT follower_id) AS followers_count
+FROM followers
+GROUP BY 1
+ORDER BY 1;
+
+-- 6.
+WITH dist_n AS (SELECT num FROM myNumbers GROUP BY 1 HAVING COUNT(*) = 1)
+SELECT MAX(num) AS num
+FROM dist_n;
+
+-- 7.
+SELECT customer_id
+FROM customer
+GROUP BY 1
+HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(DISTINCT product_key) FROM product);
